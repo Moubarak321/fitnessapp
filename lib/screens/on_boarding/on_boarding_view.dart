@@ -1,4 +1,5 @@
 import "package:fitnessapp/common/color_extension.dart";
+import "package:fitnessapp/common_widget/on_boarding_page.dart";
 import "package:flutter/material.dart";
 
 class OnboardingView extends StatefulWidget {
@@ -11,6 +12,33 @@ class OnboardingView extends StatefulWidget {
 class _OnboardingViewState extends State<OnboardingView> {
   PageController controller = PageController();
 
+  List pageList = [
+    {
+      "title": "Track your Goal",
+      "subtitle":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut fermentum ultricies convallis. Duis tincidunt, sem eu fermentum faucibus, mauris erat elementum sapien, sed rhoncus augue elit a diam. In eu nisi at lectus interdum fermentum. ",
+      "image": "assets/images/on_1.png"
+    },
+    {
+      "title": "Get Burn",
+      "subtitle":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut fermentum ultricies convallis. Duis tincidunt, sem eu fermentum faucibus, mauris erat elementum sapien, sed rhoncus augue elit a diam. In eu nisi at lectus interdum fermentum. ",
+      "image": "assets/images/on_2.png"
+    },
+    {
+      "title": "Eate well",
+      "subtitle":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut fermentum ultricies convallis. Duis tincidunt, sem eu fermentum faucibus, mauris erat elementum sapien, sed rhoncus augue elit a diam. In eu nisi at lectus interdum fermentum. ",
+      "image": "assets/images/on_3.png"
+    },
+    {
+      "title": "Improve skills",
+      "subtitle":
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut fermentum ultricies convallis. Duis tincidunt, sem eu fermentum faucibus, mauris erat elementum sapien, sed rhoncus augue elit a diam. In eu nisi at lectus interdum fermentum. ",
+      "image": "assets/images/on_4.png"
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -20,29 +48,10 @@ class _OnboardingViewState extends State<OnboardingView> {
           children: [
             PageView.builder(
                 controller: controller,
+                itemCount: pageList.length,
                 itemBuilder: (context, index) {
-                  return SizedBox(
-                    width: media.width,
-                    height: media.height,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset("assets/images/on_1.png", width: media.width, fit: BoxFit.fitWidth,),
-
-                        SizedBox(height: media.width *0.1,),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Text("Track your Goal", style: TextStyle(color: Tcolor.black, fontSize: 24, fontWeight: FontWeight.w700),),
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut fermentum ultricies convallis. Duis tincidunt, sem eu fermentum faucibus, mauris erat elementum sapien, sed rhoncus augue elit a diam. In eu nisi at lectus interdum fermentum. ", style: TextStyle(color: Tcolor.grey, fontSize: 14,),),
-                        )
-                      ],
-                    ),
-                  );
+                  var pObj = pageList[index] as Map? ?? {};
+                  return OnBoardingPage(pObj: pObj);
                 })
           ],
         ));
