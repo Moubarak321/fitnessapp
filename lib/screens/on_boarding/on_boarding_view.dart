@@ -10,7 +10,18 @@ class OnboardingView extends StatefulWidget {
 }
 
 class _OnboardingViewState extends State<OnboardingView> {
+  int selectPage = 0;
   PageController controller = PageController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.addListener(() {
+      selectPage = controller.page?.round() ?? 0;
+    });
+    setState(() {});
+  }
 
   List pageList = [
     {
@@ -41,10 +52,11 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.of(context).size;
+    // var media = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Tcolor.white,
         body: Stack(
+          alignment: Alignment.bottomRight,
           children: [
             PageView.builder(
                 controller: controller,
@@ -52,7 +64,50 @@ class _OnboardingViewState extends State<OnboardingView> {
                 itemBuilder: (context, index) {
                   var pObj = pageList[index] as Map? ?? {};
                   return OnBoardingPage(pObj: pObj);
-                })
+                }),
+            SizedBox(
+              width: 120,
+              height: 120,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                    width: 70,
+                    height: 70,
+                    child: CircularProgressIndicator(
+                      color: Tcolor.primaryColor1,
+                      value: selectPage / 4,
+                      strokeWidth: 2,
+                    ),
+                  ),
+                  Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 25),
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          color: Tcolor.primaryColor1,
+                          borderRadius: BorderRadius.circular(35)),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.navigate_next,
+                          color: Tcolor.white,
+                        ),
+                        onPressed: () {
+                          if (selectPage < 3) {
+                            // if (pageList.length <= selectPage -1) {
+                            // open welcome screen
+                            selectPage = selectPage + 1;
+                            controller.jumpToPage(selectPage);
+                            setState(() {});
+                          } else {
+                            print("open welcome project");
+                          }
+                        },
+                      )),
+                ],
+              ),
+            )
           ],
         ));
   }
