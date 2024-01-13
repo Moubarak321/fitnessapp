@@ -13,4 +13,6 @@ class Tcolor {
   static Color get black => const Color(0xff1D1617);
   static Color get grey => const Color(0xff7B6F72);
   static Color get white => Colors.white;
+
+  static Color get ligthGrey => const Color(0xffF7f8f8);
 }

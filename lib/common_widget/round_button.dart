@@ -10,7 +10,7 @@ class RoundButton extends StatelessWidget {
   const RoundButton(
       {super.key,
       required this.title,
-      this.type = RoundButtonType.textGradient,
+      this.type = RoundButtonType.bgGradient,
       required this.onPressed});
 
   @override

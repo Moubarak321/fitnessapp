@@ -1,5 +1,6 @@
 import "package:fitnessapp/common/color_extension.dart";
 import "package:fitnessapp/common_widget/on_boarding_page.dart";
+import "package:fitnessapp/screens/login/signup_view.dart";
 import "package:flutter/material.dart";
 
 class OnboardingView extends StatefulWidget {
@@ -99,12 +100,17 @@ class _OnboardingViewState extends State<OnboardingView> {
                             // open welcome screen
                             selectPage = selectPage + 1;
                             controller.animateToPage(selectPage,
-                                duration: const Duration(milliseconds: 600),
-                                curve: Curves.bounceInOut);
+                                duration: const Duration(milliseconds: 900),
+                                curve: Curves.easeInExpo);
                             // controller.jumpToPage(selectPage);
                             setState(() {});
                           } else {
-                            print("open welcome project");
+                            // print("open welcome project");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignupView()),
+                            );
                           }
                         },
                       )),
