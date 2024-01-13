@@ -76,7 +76,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     height: 70,
                     child: CircularProgressIndicator(
                       color: Tcolor.primaryColor1,
-                      value: selectPage / 4,
+                      value: (selectPage + 1) / 4,
                       strokeWidth: 2,
                     ),
                   ),
@@ -98,7 +98,10 @@ class _OnboardingViewState extends State<OnboardingView> {
                             // if (pageList.length <= selectPage -1) {
                             // open welcome screen
                             selectPage = selectPage + 1;
-                            controller.jumpToPage(selectPage);
+                            controller.animateToPage(selectPage,
+                                duration: const Duration(milliseconds: 600),
+                                curve: Curves.bounceInOut);
+                            // controller.jumpToPage(selectPage);
                             setState(() {});
                           } else {
                             print("open welcome project");
