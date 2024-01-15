@@ -1,4 +1,6 @@
 import "package:fitnessapp/common/color_extension.dart";
+import "package:fitnessapp/common_widget/round_button.dart";
+import "package:fitnessapp/common_widget/round_textField.dart";
 import "package:flutter/material.dart";
 
 class CompleteProfileView extends StatefulWidget {
@@ -9,6 +11,8 @@ class CompleteProfileView extends StatefulWidget {
 }
 
 class _CompleteProfileViewState extends State<CompleteProfileView> {
+  TextEditingController txtDate = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -42,6 +46,151 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                 ),
                 SizedBox(
                   height: media.width * 0.05,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Tcolor.ligthGrey,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Row(
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              width: 50,
+                              height: 50,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              child: Image.asset(
+                                "assets/images/gender.png",
+                                width: 20,
+                                height: 20,
+                                fit: BoxFit.contain,
+                                color: Tcolor.grey,
+                              ),
+                            ),
+                            Expanded(
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  items: ["Male", "Female"]
+                                      .map(
+                                        (name) => DropdownMenuItem(
+                                          value: name,
+                                          child: Text(
+                                            name,
+                                            style: TextStyle(
+                                                color: Tcolor.grey,
+                                                fontSize: 14),
+                                          ),
+                                        ),
+                                      )
+                                      .toList(),
+                                  onChanged: (value) {},
+                                  isExpanded: true,
+                                  hint: Text(
+                                    "Choose Gender",
+                                    style: TextStyle(
+                                        color: Tcolor.grey, fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: media.width * 0.04,
+                      ),
+                      RoundTextField(
+                        controller: txtDate,
+                        hitText: "Date of birth",
+                        icon: "assets/images/date.png",
+                      ),
+                      SizedBox(
+                        height: media.width * 0.04,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: RoundTextField(
+                              controller: txtDate,
+                              hitText: "Your Weight",
+                              icon: "assets/images/weight.png",
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Container(
+                            width: 50,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              gradient:
+                                  LinearGradient(colors: Tcolor.secondaryG),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Text(
+                              "KG",
+                              style:
+                                  TextStyle(color: Tcolor.white, fontSize: 12),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: media.width * 0.04,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: RoundTextField(
+                              controller: txtDate,
+                              hitText: "Your Height",
+                              icon: "assets/images/hight.png",
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Container(
+                            width: 50,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              gradient:
+                                  LinearGradient(colors: Tcolor.secondaryG),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Text(
+                              "CM",
+                              style:
+                                  TextStyle(color: Tcolor.white, fontSize: 12),
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: media.width * 0.07,
+                      ),
+                      RoundButton(
+                          title: "Next >",
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: ((context) =>
+                                    const CompleteProfileView()),
+                              ),
+                            );
+                          }),
+                    ],
+                  ),
                 ),
               ],
             ),
