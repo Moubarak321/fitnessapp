@@ -110,7 +110,7 @@ class _SignupViewState extends State<SignupView> {
                   ],
                 ),
                 SizedBox(
-                  height: media.width * 0.4,
+                  height: media.width * 0.3,
                 ),
                 RoundButton(title: "Register", onPressed: () {}),
                 SizedBox(

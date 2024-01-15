@@ -100,7 +100,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                             // open welcome screen
                             selectPage = selectPage + 1;
                             controller.animateToPage(selectPage,
-                                duration: const Duration(milliseconds: 900),
+                                duration: const Duration(milliseconds: 600),
                                 curve: Curves.easeInExpo);
                             // controller.jumpToPage(selectPage);
                             setState(() {});

@@ -48,6 +48,9 @@ class _StartedViewState extends State<StartedView> {
                 ),
               ),
               const Spacer(),
+              SizedBox(
+                height: media.width * 0.9,
+              ),
               SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -73,6 +76,7 @@ class _StartedViewState extends State<StartedView> {
                       }),
                 ),
               ),
+              const Spacer(),
             ],
           )),
     );
