@@ -1,18 +1,18 @@
 import "package:fitnessapp/common/color_extension.dart";
 import "package:fitnessapp/common_widget/round_button.dart";
 import "package:fitnessapp/common_widget/round_textField.dart";
-import "package:fitnessapp/screens/login/complete_profile_view.dart";
-import "package:fitnessapp/screens/login/login_view.dart";
+// import "package:fitnessapp/screens/login/complete_profile_view.dart";
+// import "package:fitnessapp/screens/login/signup_view.dart";
 import "package:flutter/material.dart";
 
-class SignupView extends StatefulWidget {
-  const SignupView({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<SignupView> createState() => _SignupViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _SignupViewState extends State<SignupView> {
+class _LoginViewState extends State<LoginView> {
   bool isCheck = false;
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,8 @@ class _SignupViewState extends State<SignupView> {
       backgroundColor: Tcolor.white,
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Padding(
+          child: Container(
+            height: media.height,
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
             ),
@@ -33,7 +34,7 @@ class _SignupViewState extends State<SignupView> {
                   style: TextStyle(color: Tcolor.grey, fontSize: 16),
                 ),
                 Text(
-                  "Create an Account",
+                  "Welcome Back !!!",
                   style: TextStyle(
                       color: Tcolor.black,
                       fontSize: 20,
@@ -42,20 +43,10 @@ class _SignupViewState extends State<SignupView> {
                 SizedBox(
                   height: media.width * 0.05,
                 ),
-                const RoundTextField(
-                  hitText: "First Name",
-                  icon: "assets/images/user_text.png",
-                ),
-                SizedBox(
-                  height: media.width * 0.04,
-                ),
-                const RoundTextField(
-                  hitText: "Last Name",
-                  icon: "assets/images/user_text.png",
-                ),
-                SizedBox(
-                  height: media.width * 0.04,
-                ),
+
+                // SizedBox(
+                //   height: media.width * 0.04,
+                // ),
                 const RoundTextField(
                     hitText: "Email",
                     icon: "assets/images/email.png",
@@ -88,41 +79,46 @@ class _SignupViewState extends State<SignupView> {
                   height: media.width * 0.04,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isCheck = !isCheck;
-                        });
-                      },
-                      icon: Icon(
-                          isCheck
-                              ? Icons.check_box_outlined
-                              : Icons.check_box_outline_blank_outlined,
-                          color: Tcolor.grey,
-                          size: 20),
-                    ),
+                    // IconButton(
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       isCheck = !isCheck;
+                    //     });
+                    //   },
+                    //   icon: Icon(
+                    //       isCheck
+                    //           ? Icons.check_box_outlined
+                    //           : Icons.check_box_outline_blank_outlined,
+                    //       color: Tcolor.grey,
+                    //       size: 20),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: Text(
-                        "By continuing, you accept our Privacy and\nTerm of Uses",
-                        style: TextStyle(color: Tcolor.grey, fontSize: 10),
+                        "Forgot your password ?",
+                        style: TextStyle(
+                            color: Tcolor.grey,
+                            fontSize: 10,
+                            decoration: TextDecoration.underline),
                       ),
                     )
                   ],
                 ),
+                // const Spacer(),
                 SizedBox(
-                  height: media.width * 0.3,
+                  height: media.width * 0.8,
                 ),
                 RoundButton(
-                    title: "Register",
+                    title: "Login",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: ((context) => const CompleteProfileView()),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: ((context) => const CompleteProfileView()),
+                      //   ),
+                      // );
                     }),
                 SizedBox(
                   height: media.width * 0.04,
@@ -200,30 +196,27 @@ class _SignupViewState extends State<SignupView> {
                 //     ),
                 //   ],
                 // ),
-                SizedBox(
-                  height: media.width * 0.04,
-                ),
+                // SizedBox(
+                //   height: media.width * 0.04,
+                // ),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pop(
                       context,
-                      MaterialPageRoute(
-                        builder: ((context) => const LoginView()),
-                      ),
                     );
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        "Already have an account ?",
+                        "Don't have an account yet ?",
                         style: TextStyle(
                           color: Tcolor.black,
                           fontSize: 14,
                         ),
                       ),
                       Text(
-                        "Login",
+                        "Register",
                         style: TextStyle(
                             color: Tcolor.black,
                             fontSize: 14,
