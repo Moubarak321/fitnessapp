@@ -2,8 +2,15 @@ import 'package:fitnessapp/common/color_extension.dart';
 // import 'package:fitnessapp/screens/on_boarding/on_boarding_view.dart';
 import 'package:fitnessapp/screens/on_boarding/started_view.dart';
 import 'package:flutter/material.dart';
+import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main()async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
   runApp(const MyApp());
 }
 

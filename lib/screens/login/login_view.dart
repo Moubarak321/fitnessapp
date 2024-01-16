@@ -1,6 +1,7 @@
 import "package:fitnessapp/common/color_extension.dart";
 import "package:fitnessapp/common_widget/round_button.dart";
 import "package:fitnessapp/common_widget/round_textField.dart";
+import "package:fitnessapp/screens/login/otp.dart";
 // import "package:fitnessapp/screens/login/complete_profile_view.dart";
 // import "package:fitnessapp/screens/login/signup_view.dart";
 import "package:flutter/material.dart";
@@ -113,12 +114,12 @@ class _LoginViewState extends State<LoginView> {
                 RoundButton(
                     title: "Login",
                     onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: ((context) => const CompleteProfileView()),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => const VerificationOtp(verificationId: '', phoneNumber: '',)),
+                        ),
+                      );
                     }),
                 SizedBox(
                   height: media.width * 0.04,

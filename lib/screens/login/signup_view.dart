@@ -1,9 +1,13 @@
+import "package:firebase_auth/firebase_auth.dart";
 import "package:fitnessapp/common/color_extension.dart";
 import "package:fitnessapp/common_widget/round_button.dart";
 import "package:fitnessapp/common_widget/round_textField.dart";
 import "package:fitnessapp/screens/login/complete_profile_view.dart";
+import "package:fitnessapp/screens/login/function.dart";
 import "package:fitnessapp/screens/login/login_view.dart";
+import "package:fitnessapp/screens/login/otp.dart";
 import "package:flutter/material.dart";
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
@@ -14,6 +18,35 @@ class SignupView extends StatefulWidget {
 
 class _SignupViewState extends State<SignupView> {
   bool isCheck = false;
+  bool loading = false;
+  String phoneNumber = '';
+  String countryCode = '';
+  final TextEditingController _phoneNumberController = TextEditingController();
+
+  void sendOtpCode() {
+    loading = true;
+    setState(() {});
+    final _auth = FirebaseAuth.instance;
+    if (phoneNumber.isNotEmpty) {
+      authWithPhoneNumber(phoneNumber, onCodeSend: (verificationId, v) {
+        loading = false;
+        setState(() {});
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (c) => VerificationOtp(
+                  verificationId: verificationId,
+                  phoneNumber: phoneNumber,
+                )));
+      }, onAutoVerify: (v) async {
+        await _auth.signInWithCredential(v);
+        Navigator.of(context).pop();
+      }, onFailed: (e) {
+        loading = false;
+        setState(() {});
+        print("Le code est erroné");
+      }, autoRetrieval: (v) {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -56,34 +89,63 @@ class _SignupViewState extends State<SignupView> {
                 SizedBox(
                   height: media.width * 0.04,
                 ),
-                const RoundTextField(
-                    hitText: "Email",
-                    icon: "assets/images/email.png",
-                    keyboardType: TextInputType.emailAddress),
-                SizedBox(
-                  height: media.width * 0.04,
-                ),
-                RoundTextField(
-                  hitText: "Password",
-                  icon: "assets/images/lock.png",
-                  keyboardType: TextInputType.emailAddress,
-                  obscureText: true,
-                  rightIcon: TextButton(
-                    onPressed: () {},
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 20,
-                      height: 20,
-                      child: Image.asset(
-                        "assets/images/show_password.png",
-                        width: 20,
-                        height: 20,
-                        fit: BoxFit.contain,
-                        color: Tcolor.grey,
-                      ),
+                // const RoundTextField(
+                //     hitText: "Email",
+                //     icon: "assets/images/email.png",
+                //     keyboardType: TextInputType.emailAddress),
+                // SizedBox(
+                //   height: media.width * 0.04,
+                // ),
+                IntlPhoneField(
+                  controller: _phoneNumberController,
+                  flagsButtonPadding: const EdgeInsets.all(1),
+                  dropdownIconPosition: IconPosition.trailing,
+                  initialCountryCode: 'BJ',
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 15),
+                    labelText: 'Numéro de téléphone',
+                    labelStyle: TextStyle(color: Tcolor.ligthGrey),
+                    filled: true,
+                    fillColor: Tcolor.ligthGrey,
+                    alignLabelWithHint: true,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(15),
                     ),
                   ),
+                  onChanged: (value) {
+                    phoneNumber = value.completeNumber;
+                  },
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(color: Tcolor.grey, fontSize: 12),
+                  // Vous pouvez également ajuster d'autres propriétés comme icon, rightIcon, etc.
                 ),
+
+                // SizedBox(
+                //   height: media.width * 0.04,
+                // ),
+                // RoundTextField(
+                //   hitText: "Password",
+                //   icon: "assets/images/lock.png",
+                //   keyboardType: TextInputType.emailAddress,
+                //   obscureText: true,
+                //   rightIcon: TextButton(
+                //     onPressed: () {},
+                //     child: Container(
+                //       alignment: Alignment.center,
+                //       width: 20,
+                //       height: 20,
+                //       child: Image.asset(
+                //         "assets/images/show_password.png",
+                //         width: 20,
+                //         height: 20,
+                //         fit: BoxFit.contain,
+                //         color: Tcolor.grey,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 SizedBox(
                   height: media.width * 0.04,
                 ),
@@ -117,12 +179,13 @@ class _SignupViewState extends State<SignupView> {
                 RoundButton(
                     title: "Register",
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: ((context) => const CompleteProfileView()),
-                        ),
-                      );
+                      sendOtpCode();
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: ((context) => const CompleteProfileView()),
+                      //   ),
+                      // );
                     }),
                 SizedBox(
                   height: media.width * 0.04,
