@@ -1,6 +1,7 @@
 import "package:fitnessapp/common/color_extension.dart";
 import "package:fitnessapp/common_widget/round_button.dart";
 import "package:fitnessapp/common_widget/round_textField.dart";
+import "package:fitnessapp/screens/login/what_goal_view.dart";
 import "package:flutter/material.dart";
 
 class CompleteProfileView extends StatefulWidget {
@@ -42,7 +43,7 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                 ),
                 Text(
                   "It will help us to know more about you !",
-                  style: TextStyle(color: Tcolor.grey, fontSize: 16),
+                  style: TextStyle(color: Tcolor.grey, fontSize: 12),
                 ),
                 SizedBox(
                   height: media.width * 0.05,
@@ -185,7 +186,7 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                               context,
                               MaterialPageRoute(
                                 builder: ((context) =>
-                                    const CompleteProfileView()),
+                                    const WhatYourGoalView()),
                               ),
                             );
                           }),
