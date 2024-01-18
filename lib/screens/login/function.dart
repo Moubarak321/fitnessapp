@@ -20,6 +20,7 @@ Future<void> validateOtp(String smsCode, String verificationId) async {
   final credential = PhoneAuthProvider.credential(
       verificationId: verificationId, smsCode: smsCode);
   await _auth.signInWithCredential(credential);
+  print(smsCode);
   return;
 }
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitnessapp/screens/login/complete_profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:fitnessapp/screens/login/function.dart';
@@ -71,7 +72,12 @@ class _VerificationOtpState extends State<VerificationOtp> {
     setState(() {});
     // Navigator.of(context).pop();
     // ignore: use_build_context_synchronously
-    Navigator.pushNamed(context, '/complete_profile_view');
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: ((context) => const CompleteProfileView()),
+      ),
+    );
     // print("Vérification éfectué avec succès");
   }
 

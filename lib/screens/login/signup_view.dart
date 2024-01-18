@@ -2,7 +2,7 @@ import "package:firebase_auth/firebase_auth.dart";
 import "package:fitnessapp/common/color_extension.dart";
 import "package:fitnessapp/common_widget/round_button.dart";
 import "package:fitnessapp/common_widget/round_textField.dart";
-import "package:fitnessapp/screens/login/complete_profile_view.dart";
+// import "package:fitnessapp/screens/login/complete_profile_view.dart";
 import "package:fitnessapp/screens/login/function.dart";
 import "package:fitnessapp/screens/login/login_view.dart";
 import "package:fitnessapp/screens/login/otp.dart";
@@ -26,18 +26,22 @@ class _SignupViewState extends State<SignupView> {
   void sendOtpCode() {
     loading = true;
     setState(() {});
-    final _auth = FirebaseAuth.instance;
+    final auth = FirebaseAuth.instance;
     if (phoneNumber.isNotEmpty) {
       authWithPhoneNumber(phoneNumber, onCodeSend: (verificationId, v) {
         loading = false;
         setState(() {});
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (c) => VerificationOtp(
-                  verificationId: verificationId,
-                  phoneNumber: phoneNumber,
-                )));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => VerificationOtp(
+              verificationId: verificationId,
+              phoneNumber: phoneNumber,
+            ),
+          ),
+        );
       }, onAutoVerify: (v) async {
-        await _auth.signInWithCredential(v);
+        await auth.signInWithCredential(v);
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pop();
       }, onFailed: (e) {
         loading = false;
