@@ -117,17 +117,7 @@ class _SignupViewState extends State<SignupView> {
       print("phone ======${phoneNumber}");
       print("last ======${lastName}");
       print("firstName ======${firstName}");
-      // Obtenez la permission de notification
-      NotificationSettings settings =
-          await FirebaseMessaging.instance.requestPermission(
-        alert: true,
-        announcement: false,
-        badge: true,
-        criticalAlert: true,
-        provisional: false,
-        sound: true,
-      );
-      //// Utilisez le contrôleur _phoneNumberController
+     
 
       try {
         setState(() {
@@ -154,31 +144,16 @@ class _SignupViewState extends State<SignupView> {
           CollectionReference usersCollection =
               FirebaseFirestore.instance.collection('users');
           print(usersCollection);
-
-          if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-            // Si l'autorisation est accordée, obtenez le token FCM
-            String? fcmToken = await MyFirebaseMessaging().getFCMToken();
-            print('token ======${fcmToken!}');
-
-            // Enregistrez l'utilisateur dans Firestore avec l'e-mail, le mot de passe et le numéro de téléphone
-            await usersCollection.doc(userId).set({
-              'noms': lastName,
-              'prenoms': firstName,
-              'phoneNumber': "229$phoneNumber",
-              'role': "Utilisateur",
-              'fcmToken': fcmToken,
-            });
-          } else {
-            // Gestion si l'autorisation est refusée ou bloquée
-            await usersCollection.doc(userId).set({
-              'noms': lastName,
-              'prenoms': firstName,
-              'phoneNumber': "229$phoneNumber",
-              'role': "Utilisateur",
-            });
-            _showErrorDialog(
-                'Veuillez autoriser les notifications pour utiliser cette application.');
-          }
+          
+          // Enregistrez l'utilisateur dans Firestore avec l'e-mail, le mot de passe et le numéro de téléphone
+          await usersCollection.doc(userId).set({
+            'noms': lastName,
+            'prenoms': firstName,
+            'phoneNumber': "229$phoneNumber",
+            'role': "Utilisateur",
+            // 'fcmToken': fcmToken,
+          });
+         
           print("Utilisateur enregistré dans Firebase Firestore avec succès.");
           // ignore: use_build_context_synchronously
           Navigator.push(
@@ -189,6 +164,10 @@ class _SignupViewState extends State<SignupView> {
           );
         } else {
           print("L'utilisateur Firebase Auth n'a pas été créé avec succès.");
+          Get.snackbar(
+            "Erreur",
+            "User non créé",
+          );
         }
       } catch (e) {
         // Gérez les erreurs d'inscription ici
@@ -199,6 +178,101 @@ class _SignupViewState extends State<SignupView> {
       }
     }
   }
+
+// handlesubmit avec autorisation firebase messaging
+  // void _handleSubmit() async {
+  //   if (_formKey.currentState!.validate()) {
+  //     final email = _emailController.text;
+  //     final password = _passwordController.text;
+  //     final phoneNumber = _phoneNumberController.text;
+  //     final lastName = _lastNameController.text;
+  //     final firstName = _firstNameController.text;
+  //     print("phone ======${phoneNumber}");
+  //     print("last ======${lastName}");
+  //     print("firstName ======${firstName}");
+  //     // Obtenez la permission de notification
+  //     NotificationSettings settings =
+  //         await FirebaseMessaging.instance.requestPermission(
+  //       alert: true,
+  //       announcement: false,
+  //       badge: true,
+  //       criticalAlert: true,
+  //       provisional: false,
+  //       sound: true,
+  //     );
+  //     //// Utilisez le contrôleur _phoneNumberController
+
+  //     try {
+  //       setState(() {
+  //         _isSubmitting = true; // Afficher l'indicateur de chargement
+  //       });
+  //       // Créez un utilisateur Firebase Auth
+  //       UserCredential userCredential =
+  //           await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //         email: email,
+  //         password: password,
+  //       );
+  //       print(userCredential.user);
+  //       print("=================${userCredential.user!.uid}");
+  //       print(
+  //           "==================================user created auth==================================");
+  //       // Si l'utilisateur Firebase Auth est créé avec succès, enregistrez les données dans Firebase Firestore
+  //       if (userCredential.user != null) {
+  //         String userId = userCredential.user!.uid;
+  //         print(userId);
+  //         print(
+  //             "==================================ajout base et crea firestore==================================");
+  //         Get.snackbar("Ok", "User créé");
+
+  //         // Créez une référence à la collection "users" dans Firestore
+  //         CollectionReference usersCollection =
+  //             FirebaseFirestore.instance.collection('users');
+  //         print(usersCollection);
+  //         if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+  //           // Si l'autorisation est accordée, obtenez le token FCM
+  //           String? fcmToken = await MyFirebaseMessaging().getFCMToken();
+  //           print('token ======${fcmToken!}');
+
+  //           // Enregistrez l'utilisateur dans Firestore avec l'e-mail, le mot de passe et le numéro de téléphone
+  //           await usersCollection.doc(userId).set({
+  //             'noms': lastName,
+  //             'prenoms': firstName,
+  //             'phoneNumber': "229$phoneNumber",
+  //             'role': "Utilisateur",
+  //             'fcmToken': fcmToken,
+  //           });
+  //         } else {
+  //           // Gestion si l'autorisation est refusée ou bloquée
+  //           await usersCollection.doc(userId).set({
+  //             'noms': lastName,
+  //             'prenoms': firstName,
+  //             'phoneNumber': "229$phoneNumber",
+  //             'role': "Utilisateur",
+  //           });
+  //           _showErrorDialog(
+  //               'Veuillez autoriser les notifications pour utiliser cette application.');
+  //           Get.snackbar("infos", "Autorisez les notfs");
+  //         }
+  //         print("Utilisateur enregistré dans Firebase Firestore avec succès.");
+  //         // ignore: use_build_context_synchronously
+  //         Navigator.push(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: ((context) => const CompleteProfileView()),
+  //           ),
+  //         );
+  //       } else {
+  //         print("L'utilisateur Firebase Auth n'a pas été créé avec succès.");
+  //       }
+  //     } catch (e) {
+  //       // Gérez les erreurs d'inscription ici
+  //       // print("Erreur d'inscription : $e");
+  //       setState(() {
+  //         _isSubmitting = false; // Mettre fin à l'indicateur de chargement
+  //       });
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -355,6 +429,7 @@ class _SignupViewState extends State<SignupView> {
                     //     _handleSubmit();
                     //   }
                     // },
+
                     onPressed: _isSubmitting ? null : () => _handleSubmit(),
                   ),
                   if (_isSubmitting)
@@ -363,6 +438,7 @@ class _SignupViewState extends State<SignupView> {
                     ),
                   if (_isSubmitting)
                     const CircularProgressIndicator(), // Indicateur de chargement
+
                   // SizedBox(
                   //   height: media.width * 0.04,
                   // ),
