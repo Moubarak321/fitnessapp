@@ -9,6 +9,8 @@ class RoundTextField extends StatelessWidget {
   final bool obscureText;
   final Widget? rightIcon;
   final EdgeInsets? margin;
+        final String? Function(dynamic value)? validator;
+
   const RoundTextField(
       {super.key,
       required this.hitText,
@@ -17,7 +19,8 @@ class RoundTextField extends StatelessWidget {
       this.margin,
       this.keyboardType,
       this.obscureText = false,
-      this.rightIcon});
+
+      this.rightIcon, this.validator});
 
   @override
   Widget build(BuildContext context) {

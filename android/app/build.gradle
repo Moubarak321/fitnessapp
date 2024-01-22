@@ -20,7 +20,7 @@ if (flutterVersionCode == null) {
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+    flutterVersionName = '1.0' 
 }
 
 android {
@@ -74,5 +74,5 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-firestore")
-    implementation("com.google.firebase:firebase-appcheck-playintegrity")
+    // implementation("com.google.firebase:firebase-appcheck-playintegrity")
 }

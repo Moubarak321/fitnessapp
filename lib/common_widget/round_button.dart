@@ -6,12 +6,12 @@ enum RoundButtonType { bgGradient, textGradient }
 class RoundButton extends StatelessWidget {
   final String title;
   final RoundButtonType type;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   const RoundButton(
       {super.key,
       required this.title,
       this.type = RoundButtonType.bgGradient,
-      required this.onPressed});
+       this.onPressed});
 
   @override
   Widget build(BuildContext context) {

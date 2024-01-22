@@ -1,6 +1,7 @@
 import "package:fitnessapp/common/color_extension.dart";
 import "package:fitnessapp/common_widget/round_button.dart";
 import "package:fitnessapp/common_widget/round_textField.dart";
+import "package:fitnessapp/screens/home/home_view.dart";
 import "package:fitnessapp/screens/login/otp.dart";
 // import "package:fitnessapp/screens/login/complete_profile_view.dart";
 // import "package:fitnessapp/screens/login/signup_view.dart";
@@ -51,7 +52,7 @@ class _LoginViewState extends State<LoginView> {
                 const RoundTextField(
                     hitText: "Email",
                     icon: "assets/images/email.png",
-                    keyboardType: TextInputType.emailAddress),
+                    keyboardType: TextInputType.emailAddress, ),
                 SizedBox(
                   height: media.width * 0.04,
                 ),
@@ -117,7 +118,8 @@ class _LoginViewState extends State<LoginView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: ((context) => const VerificationOtp(verificationId: '', phoneNumber: '',)),
+                          builder: ((context) => const Home()),
+                          // builder: ((context) => const VerificationOtp(verificationId: '', phoneNumber: '',)),
                         ),
                       );
                     }),
