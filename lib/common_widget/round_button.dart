@@ -7,69 +7,158 @@ class RoundButton extends StatelessWidget {
   final String title;
   final RoundButtonType type;
   final VoidCallback? onPressed;
-  const RoundButton(
-      {super.key,
-      required this.title,
-      this.type = RoundButtonType.bgGradient,
-       this.onPressed});
+  final bool? isLoading;
+
+  const RoundButton({
+    super.key,
+    required this.title,
+    this.type = RoundButtonType.bgGradient,
+    this.onPressed,
+    this.isLoading,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-            colors: Tcolor.primaryG,
-            begin: Alignment.bottomLeft,
-            end: Alignment.centerRight),
+          colors: Tcolor.primaryG,
+          begin: Alignment.bottomLeft,
+          end: Alignment.centerRight,
+        ),
         borderRadius: BorderRadius.circular(25),
         boxShadow: type == RoundButtonType.bgGradient
             ? const [
                 BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 0.5,
-                    offset: Offset(0, 0.5))
+                  color: Colors.black26,
+                  blurRadius: 0.5,
+                  offset: Offset(0, 0.5),
+                )
               ]
             : null,
       ),
       child: MaterialButton(
-        onPressed: onPressed,
+        onPressed: isLoading != true ? onPressed : null,
         height: 50,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
         textColor: Tcolor.primaryColor1,
         minWidth: double.maxFinite,
         elevation: type == RoundButtonType.bgGradient ? 0 : 1,
         color: type == RoundButtonType.bgGradient
             ? Colors.transparent
-            : Tcolor.white, //Tcolor.white,
-
-        child: type == RoundButtonType.bgGradient
-            ? Text(
-                title,
-                style: TextStyle(
-                    color: Tcolor.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700),
+            : Tcolor.white,
+        child: isLoading == true
+            ? CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Tcolor.white),
               )
-            : ShaderMask(
-                blendMode: BlendMode.srcIn,
-                shaderCallback: (bounds) {
-                  return LinearGradient(
-                          colors: Tcolor.primaryG,
-                          begin: Alignment.bottomLeft,
-                          end: Alignment.centerRight)
-                      .createShader(
-                    Rect.fromLTRB(0, 0, bounds.width, bounds.height),
-                  );
-                },
-                child: Text(
-                  title,
-                  style: TextStyle(
-                      color: Tcolor.primaryColor1,
+            : type == RoundButtonType.bgGradient
+                ? Text(
+                    title,
+                    style: TextStyle(
+                      color: Tcolor.white,
                       fontSize: 16,
-                      fontWeight: FontWeight.w700),
-                ),
-              ),
+                      fontWeight: FontWeight.w700,
+                    ),
+                  )
+                : ShaderMask(
+                    blendMode: BlendMode.srcIn,
+                    shaderCallback: (bounds) {
+                      return LinearGradient(
+                        colors: Tcolor.primaryG,
+                        begin: Alignment.bottomLeft,
+                        end: Alignment.centerRight,
+                      ).createShader(
+                        Rect.fromLTRB(0, 0, bounds.width, bounds.height),
+                      );
+                    },
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        color: Tcolor.primaryColor1,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
       ),
     );
   }
 }
+
+
+
+
+//=============sans loading 
+// class RoundButton extends StatelessWidget {
+//   final String title;
+//   final RoundButtonType type;
+//   final VoidCallback? onPressed;
+//     final bool? isLoading;
+//   const RoundButton(
+//       {super.key,
+//       required this.title,
+//       this.type = RoundButtonType.bgGradient,
+//        this.onPressed, this.isLoading});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: BoxDecoration(
+//         gradient: LinearGradient(
+//             colors: Tcolor.primaryG,
+//             begin: Alignment.bottomLeft,
+//             end: Alignment.centerRight),
+//         borderRadius: BorderRadius.circular(25),
+//         boxShadow: type == RoundButtonType.bgGradient
+//             ? const [
+//                 BoxShadow(
+//                     color: Colors.black26,
+//                     blurRadius: 0.5,
+//                     offset: Offset(0, 0.5))
+//               ]
+//             : null,
+//       ),
+//       child: MaterialButton(
+//         onPressed: onPressed,
+//         height: 50,
+//         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+//         textColor: Tcolor.primaryColor1,
+//         minWidth: double.maxFinite,
+//         elevation: type == RoundButtonType.bgGradient ? 0 : 1,
+//         color: type == RoundButtonType.bgGradient
+//             ? Colors.transparent
+//             : Tcolor.white, //Tcolor.white,
+
+//         child: type == RoundButtonType.bgGradient
+//             ? Text(
+//                 title,
+//                 style: TextStyle(
+//                     color: Tcolor.white,
+//                     fontSize: 16,
+//                     fontWeight: FontWeight.w700),
+//               )
+//             : ShaderMask(
+//                 blendMode: BlendMode.srcIn,
+//                 shaderCallback: (bounds) {
+//                   return LinearGradient(
+//                           colors: Tcolor.primaryG,
+//                           begin: Alignment.bottomLeft,
+//                           end: Alignment.centerRight)
+//                       .createShader(
+//                     Rect.fromLTRB(0, 0, bounds.width, bounds.height),
+//                   );
+//                 },
+//                 child: Text(
+//                   title,
+//                   style: TextStyle(
+//                       color: Tcolor.primaryColor1,
+//                       fontSize: 16,
+//                       fontWeight: FontWeight.w700),
+//                 ),
+//               ),
+//       ),
+//     );
+//   }
+// }

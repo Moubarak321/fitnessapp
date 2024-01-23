@@ -20,6 +20,7 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
 
   bool isCheck = false;
 
@@ -29,6 +30,9 @@ class _LoginViewState extends State<LoginView> {
       final password = _passwordController.text;
 
       try {
+        setState(() {
+          _isLoading = true;
+        });
         // Authentification de l'utilisateur avec Firebase
         UserCredential userCredential =
             await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -57,6 +61,10 @@ class _LoginViewState extends State<LoginView> {
         );
         // _showErrorDialog(
         //     "Vous avez défini un mauvais email ou un mauvais mot de passe !!! ");
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
   }
@@ -210,6 +218,14 @@ class _LoginViewState extends State<LoginView> {
                   SizedBox(
                     height: media.width * 0.04,
                   ),
+
+                  if (_isLoading)
+                    Container(
+                      color: Colors.black.withOpacity(0.5),
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
                 ],
               ),
             ),
