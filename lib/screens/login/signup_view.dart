@@ -44,21 +44,16 @@ class _SignupViewState extends State<SignupView> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _isSubmitting = false;
   final _formKey = GlobalKey<FormState>();
-  String? _passwordErrorText;
-  bool _isLoading = false;
+  bool _isSubmitting = false;
 
   bool _isPasswordValid(String value) {
     if (value.length < 6) {
       setState(() {
-        _passwordErrorText =
-            "Le mot de passe doit contenir au moins 6 caractères.";
       });
       return false;
     } else {
       setState(() {
-        _passwordErrorText = null;
       });
       return true;
     }
@@ -69,115 +64,82 @@ class _SignupViewState extends State<SignupView> {
     return emailRegex.hasMatch(value);
   }
 
-  void _showErrorDialog(String errorMessage) {
-    Get.defaultDialog(
-      title: "Attention !!!",
-      titleStyle:
-          const TextStyle(fontSize: 20, color: Colors.red), // Style du titre
-      content: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15.0),
-        child: Text(
-          errorMessage,
-          style: const TextStyle(
-            fontSize: 16, // Taille de police du texte du contenu
-            color: Colors.black, // Couleur du texte du contenu
-          ),
-        ),
-      ),
-      confirm: ElevatedButton(
-        onPressed: () {
-          Get.back(); // Ferme le dialogue
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red, // Couleur du bouton "OK"
-          side: BorderSide.none,
-        ),
-        child: const Text(
-          "OK",
-          style: TextStyle(
-            fontSize: 16, // Taille de police du texte du bouton
-            color: Colors.white, // Couleur du texte du bouton
-          ),
-        ),
-      ),
-    );
-    setState(() {
-      _isLoading = false;
-      _isSubmitting = false; // Mettre fin à l'indicateur de chargement
-    });
-  }
 
   void _handleSubmit() async {
-    if (_formKey.currentState!.validate()) {
-      final email = _emailController.text;
-      final password = _passwordController.text;
-      final phoneNumber = _phoneNumberController.text;
-      final lastName = _lastNameController.text;
-      final firstName = _firstNameController.text;
-      print("phone ======${phoneNumber}");
-      print("last ======${lastName}");
-      print("firstName ======${firstName}");
-     
+  if (_formKey.currentState!.validate()) {
+    final email = _emailController.text;
+    final password = _passwordController.text;
+    final phoneNumber = _phoneNumberController.text;
+    final lastName = _lastNameController.text;
+    final firstName = _firstNameController.text;
 
-      try {
-        setState(() {
-          _isSubmitting = true; // Afficher l'indicateur de chargement
+    try {
+      setState(() {
+        _isSubmitting = true; // Afficher l'indicateur de chargement
+      });
+
+      // Créez un utilisateur Firebase Auth
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      print("=================${userCredential.user!.uid}");
+      print(
+          "==================================user created auth==================================");
+
+      // Si l'utilisateur Firebase Auth est créé avec succès, enregistrez les données dans Firebase Firestore
+      if (userCredential.user != null) {
+        String userId = userCredential.user!.uid;
+        print(
+            "==================================ajout base et crea firestore==================================");
+
+        // Créez une référence à la collection "users" dans Firestore
+        CollectionReference usersCollection =
+            FirebaseFirestore.instance.collection('users');
+        print(usersCollection);
+
+        // Enregistrez l'utilisateur dans Firestore avec l'e-mail, le mot de passe et le numéro de téléphone
+        await usersCollection.doc(userId).set({
+          'noms': lastName,
+          'prenoms': firstName,
+          'phoneNumber': "229$phoneNumber",
+          'role': "Utilisateur",
+          // 'fcmToken': fcmToken,
         });
-        // Créez un utilisateur Firebase Auth
-        UserCredential userCredential =
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+
+        // Sign in the user with the created credentials
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
-        print(userCredential.user);
-        print("=================${userCredential.user!.uid}");
-        print(
-            "==================================user created auth==================================");
-        // Si l'utilisateur Firebase Auth est créé avec succès, enregistrez les données dans Firebase Firestore
-        if (userCredential.user != null) {
-          String userId = userCredential.user!.uid;
-          print(userId);
-          print(
-              "==================================ajout base et crea firestore==================================");
 
-          // Créez une référence à la collection "users" dans Firestore
-          CollectionReference usersCollection =
-              FirebaseFirestore.instance.collection('users');
-          print(usersCollection);
-          
-          // Enregistrez l'utilisateur dans Firestore avec l'e-mail, le mot de passe et le numéro de téléphone
-          await usersCollection.doc(userId).set({
-            'noms': lastName,
-            'prenoms': firstName,
-            'phoneNumber': "229$phoneNumber",
-            'role': "Utilisateur",
-            // 'fcmToken': fcmToken,
-          });
-         
-          print("Utilisateur enregistré dans Firebase Firestore avec succès.");
-          // ignore: use_build_context_synchronously
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: ((context) => const CompleteProfileView()),
-            ),
-          );
-        } else {
-          print("L'utilisateur Firebase Auth n'a pas été créé avec succès.");
-          Get.snackbar(
-            "Erreur",
-            "User non créé",
-          );
-        }
-      } catch (e) {
-        // Gérez les erreurs d'inscription ici
-        // print("Erreur d'inscription : $e");
-        setState(() {
-          _isSubmitting = false; // Mettre fin à l'indicateur de chargement
-        });
+        print("Utilisateur enregistré dans Firebase Firestore avec succès.");
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: ((context) => const CompleteProfileView()),
+          ),
+        );
+      } else {
+        print("L'utilisateur Firebase Auth n'a pas été créé avec succès.");
+        Get.snackbar(
+          "Erreur",
+          "User non créé",
+        );
       }
+    } catch (e) {
+      // Gérez les erreurs d'inscription ici
+      print("Erreur d'inscription : $e");
+      setState(() {
+        _isSubmitting = false; // Mettre fin à l'indicateur de chargement
+      });
     }
   }
+}
+
 
 // handlesubmit avec autorisation firebase messaging
   // void _handleSubmit() async {
