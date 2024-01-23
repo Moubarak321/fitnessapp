@@ -49,8 +49,8 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
         });
 
         setState(() {
-    isLoading = false;
-  });
+          isLoading = false;
+        });
 
         // Navigate to the next screen (replace this with your actual navigation logic)
         Navigator.push(
@@ -263,6 +263,7 @@ class _CompleteProfileViewState extends State<CompleteProfileView> {
                       RoundButton(
                           title: "Next >",
                           onPressed: () {
+                            isLoading = true;
                             submit();
                             // Navigator.push(
                             //   context,
