@@ -86,6 +86,9 @@ class _LoginViewState extends State<LoginView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: media.width * 0.5,
+                  ),
                   Text(
                     "Hey there",
                     style: TextStyle(color: Tcolor.grey, fontSize: 16),
@@ -136,7 +139,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   SizedBox(
-                    height: media.width * 0.04,
+                    height: media.width * 0.06,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -155,7 +158,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   // const Spacer(),
                   SizedBox(
-                    height: media.width * 0.8,
+                    height: media.width * 0.06,
                   ),
                   RoundButton(
                       title: "Login",

@@ -49,12 +49,10 @@ class _SignupViewState extends State<SignupView> {
 
   bool _isPasswordValid(String value) {
     if (value.length < 6) {
-      setState(() {
-      });
+      setState(() {});
       return false;
     } else {
-      setState(() {
-      });
+      setState(() {});
       return true;
     }
   }
@@ -64,82 +62,80 @@ class _SignupViewState extends State<SignupView> {
     return emailRegex.hasMatch(value);
   }
 
-
   void _handleSubmit() async {
-  if (_formKey.currentState!.validate()) {
-    final email = _emailController.text;
-    final password = _passwordController.text;
-    final phoneNumber = _phoneNumberController.text;
-    final lastName = _lastNameController.text;
-    final firstName = _firstNameController.text;
+    if (_formKey.currentState!.validate()) {
+      final email = _emailController.text;
+      final password = _passwordController.text;
+      final phoneNumber = _phoneNumberController.text;
+      final lastName = _lastNameController.text;
+      final firstName = _firstNameController.text;
 
-    try {
-      setState(() {
-        _isSubmitting = true; // Afficher l'indicateur de chargement
-      });
-
-      // Créez un utilisateur Firebase Auth
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
-      print("=================${userCredential.user!.uid}");
-      print(
-          "==================================user created auth==================================");
-
-      // Si l'utilisateur Firebase Auth est créé avec succès, enregistrez les données dans Firebase Firestore
-      if (userCredential.user != null) {
-        String userId = userCredential.user!.uid;
-        print(
-            "==================================ajout base et crea firestore==================================");
-
-        // Créez une référence à la collection "users" dans Firestore
-        CollectionReference usersCollection =
-            FirebaseFirestore.instance.collection('users');
-        print(usersCollection);
-
-        // Enregistrez l'utilisateur dans Firestore avec l'e-mail, le mot de passe et le numéro de téléphone
-        await usersCollection.doc(userId).set({
-          'noms': lastName,
-          'prenoms': firstName,
-          'phoneNumber': "229$phoneNumber",
-          'role': "Utilisateur",
-          // 'fcmToken': fcmToken,
+      try {
+        setState(() {
+          _isSubmitting = true; // Afficher l'indicateur de chargement
         });
 
-        // Sign in the user with the created credentials
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+        // Créez un utilisateur Firebase Auth
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
 
-        print("Utilisateur enregistré dans Firebase Firestore avec succès.");
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: ((context) => const CompleteProfileView()),
-          ),
-        );
-      } else {
-        print("L'utilisateur Firebase Auth n'a pas été créé avec succès.");
-        Get.snackbar(
-          "Erreur",
-          "User non créé",
-        );
+        print("=================${userCredential.user!.uid}");
+        print(
+            "==================================user created auth==================================");
+
+        // Si l'utilisateur Firebase Auth est créé avec succès, enregistrez les données dans Firebase Firestore
+        if (userCredential.user != null) {
+          String userId = userCredential.user!.uid;
+          print(
+              "==================================ajout base et crea firestore==================================");
+
+          // Créez une référence à la collection "users" dans Firestore
+          CollectionReference usersCollection =
+              FirebaseFirestore.instance.collection('users');
+          print(usersCollection);
+
+          // Enregistrez l'utilisateur dans Firestore avec l'e-mail, le mot de passe et le numéro de téléphone
+          await usersCollection.doc(userId).set({
+            'noms': lastName,
+            'prenoms': firstName,
+            'phoneNumber': "229$phoneNumber",
+            'role': "Utilisateur",
+            // 'fcmToken': fcmToken,
+          });
+
+          // Sign in the user with the created credentials
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: email,
+            password: password,
+          );
+
+          print("Utilisateur enregistré dans Firebase Firestore avec succès.");
+          // ignore: use_build_context_synchronously
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: ((context) => const CompleteProfileView()),
+            ),
+          );
+        } else {
+          print("L'utilisateur Firebase Auth n'a pas été créé avec succès.");
+          Get.snackbar(
+            "Erreur",
+            "User non créé",
+          );
+        }
+      } catch (e) {
+        // Gérez les erreurs d'inscription ici
+        print("Erreur d'inscription : $e");
+        setState(() {
+          _isSubmitting = false; // Mettre fin à l'indicateur de chargement
+        });
       }
-    } catch (e) {
-      // Gérez les erreurs d'inscription ici
-      print("Erreur d'inscription : $e");
-      setState(() {
-        _isSubmitting = false; // Mettre fin à l'indicateur de chargement
-      });
     }
   }
-}
-
 
 // handlesubmit avec autorisation firebase messaging
   // void _handleSubmit() async {
@@ -252,6 +248,9 @@ class _SignupViewState extends State<SignupView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: media.width * 0.2,
+                  ),
                   Text(
                     "Hey there",
                     style: TextStyle(color: Tcolor.grey, fontSize: 16),
@@ -382,7 +381,7 @@ class _SignupViewState extends State<SignupView> {
                     ],
                   ),
                   SizedBox(
-                    height: media.width * 0.3,
+                    height: media.width * 0.04,
                   ),
                   RoundButton(
                     title: "Register",
