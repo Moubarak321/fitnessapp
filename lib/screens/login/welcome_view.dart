@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitnessapp/common/color_extension.dart';
 import 'package:fitnessapp/common_widget/round_button.dart';
 import 'package:fitnessapp/screens/home/home_view.dart';
+import 'package:fitnessapp/screens/main_tab/main_tab_view.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeView extends StatefulWidget {
@@ -48,11 +49,17 @@ class _WelcomeViewState extends State<WelcomeView> {
       } catch (e) {
         print("Error retrieving user information: $e");
         // Handle error, show a message to the user, etc.
+        setState(() {
+          userName = "John";
+        });
       }
     } else {
       // User is not authenticated
       print("User not authenticated");
       // Handle accordingly, show an error message, ask the user to log in, etc.
+      setState(() {
+        userName = "John";
+      });
     }
   }
 
@@ -97,11 +104,10 @@ class _WelcomeViewState extends State<WelcomeView> {
               RoundButton(
                 title: "Go to Home",
                 onPressed: () {
-                  
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: ((context) => const Home()),
+                      builder: ((context) => const MainTabView()),
                     ),
                   );
                 },

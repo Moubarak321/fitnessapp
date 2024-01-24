@@ -1,7 +1,6 @@
-
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fitnessapp/common/color_extension.dart';
+import 'package:fitnessapp/screens/login/welcome_view.dart';
 import 'package:fitnessapp/screens/on_boarding/on_boarding_view.dart';
 import 'package:fitnessapp/screens/on_boarding/started_view.dart';
 import 'package:flutter/material.dart';
@@ -158,7 +157,8 @@ class _MyAppState extends State<MyApp> {
         primaryColor: Tcolor.primaryColor1,
         fontFamily: "Poppins",
       ),
-      home: const StartedView(),
+      // home: const StartedView(), //normal
+      home: const WelcomeView(),
     );
   }
 }

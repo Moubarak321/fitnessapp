@@ -249,7 +249,7 @@ class _SignupViewState extends State<SignupView> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: media.width * 0.2,
+                    height: media.width * 0.1,
                   ),
                   Text(
                     "Hey there",
