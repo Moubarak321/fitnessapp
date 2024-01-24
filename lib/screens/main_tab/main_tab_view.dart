@@ -1,6 +1,7 @@
 import 'package:fitnessapp/common_widget/tab_button.dart';
 import "package:flutter/material.dart";
 import 'package:fitnessapp/common/color_extension.dart';
+import 'package:fitnessapp/screens/home/home_view.dart';
 
 class MainTabView extends StatefulWidget {
   const MainTabView({super.key});
@@ -11,10 +12,16 @@ class MainTabView extends StatefulWidget {
 
 class _MainTabViewState extends State<MainTabView> {
   int selectTab = 0;
+  final PageStorageBucket pageBucket = PageStorageBucket();
+  Widget currentTab = const Home();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Tcolor.white,
+      body: PageStorage(
+        bucket: pageBucket,
+        child: currentTab,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: SizedBox(
         width: 65,
@@ -57,6 +64,8 @@ class _MainTabViewState extends State<MainTabView> {
                   selectIcon: "assets/images/home_tab_select.png",
                   onTap: () {
                     selectTab = 0;
+                    currentTab = const Home();
+
                     if (mounted) {
                       setState(
                         () {},
@@ -69,6 +78,8 @@ class _MainTabViewState extends State<MainTabView> {
                   selectIcon: "assets/images/activity_tab_select.png",
                   onTap: () {
                     selectTab = 1;
+                    currentTab = const Home();
+
                     if (mounted) {
                       setState(
                         () {},
@@ -84,6 +95,8 @@ class _MainTabViewState extends State<MainTabView> {
                   selectIcon: "assets/images/camera_tab_select.png",
                   onTap: () {
                     selectTab = 2;
+                    currentTab = const Home();
+
                     if (mounted) {
                       setState(
                         () {},
@@ -96,6 +109,8 @@ class _MainTabViewState extends State<MainTabView> {
                   selectIcon: "assets/images/profile_tab_select.png",
                   onTap: () {
                     selectTab = 3;
+                    currentTab = const Home();
+
                     if (mounted) {
                       setState(
                         () {},

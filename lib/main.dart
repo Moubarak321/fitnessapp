@@ -6,12 +6,15 @@ import 'package:fitnessapp/screens/on_boarding/started_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(
+      widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -51,12 +54,11 @@ class _MyAppState extends State<MyApp> {
     initInfo();
 
     /// whenever your initialization is completed, remove the splash screen:
-    // Future.delayed(Duration(seconds: 5)).then((value) => {
-    // Future.delayed(Duration(seconds: 5), () {
-    //   FlutterNativeSplash.remove();
-    //   navigatorKey.currentState
-    //       ?.pushReplacementNamed(initializeAppAndNavigate() as String);
-    // });
+    Future.delayed(Duration(seconds: 5), () {
+      FlutterNativeSplash.remove();
+      navigatorKey.currentState
+          ?.pushReplacementNamed(initializeAppAndNavigate() as String);
+    });
   }
 
 //========================== nouveau initinfo chatgpt ===========================
@@ -115,38 +117,38 @@ class _MyAppState extends State<MyApp> {
 
 //========================== fin initinfo chatgpt ===========================
 
-  // Future<void> initializeAppAndNavigate() async {
-  //   try {
-  //     // Vérifiez si l'utilisateur est déjà connecté.
-  //     User? user = FirebaseAuth.instance.currentUser;
+  Future<void> initializeAppAndNavigate() async {
+    try {
+      // Vérifiez si l'utilisateur est déjà connecté.
+      User? user = FirebaseAuth.instance.currentUser;
 
-  //     if (user != null) {
-  //       DateTime lastLoginTime = user.metadata.lastSignInTime!;
-  //       DateTime now = DateTime.now();
-  //       DateTime oneMonthAgo = now.subtract(Duration(days: 30));
+      if (user != null) {
+        DateTime lastLoginTime = user.metadata.lastSignInTime!;
+        DateTime now = DateTime.now();
+        DateTime oneMonthAgo = now.subtract(Duration(days: 30));
 
-  //       bool registeredByEmail = user.providerData
-  //           .any((userInfo) => userInfo.providerId == 'password');
-  //       // bool registeredByPhone = user.providerData.any((userInfo) => userInfo.providerId == 'phoneNumber');
+        bool registeredByEmail = user.providerData
+            .any((userInfo) => userInfo.providerId == 'password');
+        // bool registeredByPhone = user.providerData.any((userInfo) => userInfo.providerId == 'phoneNumber');
 
-  //       if ((registeredByEmail) && (lastLoginTime.isBefore(oneMonthAgo))) {
-  //         await Future.delayed(const Duration(seconds: 5));
-  //         navigatorKey.currentState?.pushReplacementNamed('/signInScreen');
-  //       } else {
-  //         navigatorKey.currentState?.pushReplacementNamed('/home');
-  //       }
+        if ((registeredByEmail) && (lastLoginTime.isBefore(oneMonthAgo))) {
+          await Future.delayed(const Duration(seconds: 5));
+          navigatorKey.currentState?.pushReplacementNamed('/login_view');
+        } else {
+          navigatorKey.currentState?.pushReplacementNamed('/home_view');
+        }
 
-  //       return;
-  //     }
+        return;
+      }
 
-  //     // Si l'utilisateur n'est pas connecté, vous pouvez le rediriger vers l'écran de connexion.
-  //     await Future.delayed(const Duration(seconds: 3));
-  //     navigatorKey.currentState?.pushReplacementNamed(
-  //         '/signInScreen'); // Exemple : Page de connexion
-  //   } catch (e) {
-  //     print("Erreur lors de l'initialisation de Firebase : $e");
-  //   }
-  // }
+      // Si l'utilisateur n'est pas connecté, vous pouvez le rediriger vers l'écran de connexion.
+      await Future.delayed(const Duration(seconds: 3));
+      navigatorKey.currentState
+          ?.pushReplacementNamed('/login_view'); // Exemple : Page de connexion
+    } catch (e) {
+      print("Erreur lors de l'initialisation de Firebase : $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -157,8 +159,8 @@ class _MyAppState extends State<MyApp> {
         primaryColor: Tcolor.primaryColor1,
         fontFamily: "Poppins",
       ),
-      // home: const StartedView(), //normal
-      home: const WelcomeView(),
+      home: const StartedView(), //normal
+      // home: const WelcomeView(),
     );
   }
 }
