@@ -1,5 +1,6 @@
 import "package:fitnessapp/common/color_extension.dart";
 import "package:fitnessapp/common_widget/on_boarding_page.dart";
+import "package:fitnessapp/screens/login/login_view.dart";
 import "package:fitnessapp/screens/login/signup_view.dart";
 import "package:flutter/material.dart";
 
@@ -109,7 +110,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const SignupView()),
+                                  builder: (context) => const LoginView()),
                             );
                           }
                         },

@@ -159,8 +159,8 @@ class _MyAppState extends State<MyApp> {
         primaryColor: Tcolor.primaryColor1,
         fontFamily: "Poppins",
       ),
-      home: const StartedView(), //normal
-      // home: const WelcomeView(),
+      // home: const StartedView(), //normal
+      home: const WelcomeView(),
     );
   }
 }
