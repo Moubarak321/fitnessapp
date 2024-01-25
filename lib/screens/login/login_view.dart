@@ -8,6 +8,7 @@ import "package:fitnessapp/screens/home/home_view.dart";
 // import "package:fitnessapp/screens/login/signup_view.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
+import 'package:fitnessapp/screens/main_tab/main_tab_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -48,7 +49,7 @@ class _LoginViewState extends State<LoginView> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: ((context) => const Home()),
+              builder: ((context) => const MainTabView()),
               // builder: ((context) => const VerificationOtp(verificationId: '', phoneNumber: '',)),
             ),
           );
