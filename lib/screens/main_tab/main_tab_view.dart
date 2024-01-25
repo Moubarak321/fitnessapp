@@ -13,8 +13,8 @@ class MainTabView extends StatefulWidget {
 class _MainTabViewState extends State<MainTabView> {
   int selectTab = 0;
   final PageStorageBucket pageBucket = PageStorageBucket();
-  Widget currentTab = const Home();
-  @override
+  Widget currentTab = const HomeView();
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Tcolor.white,
@@ -64,7 +64,7 @@ class _MainTabViewState extends State<MainTabView> {
                   selectIcon: "assets/images/home_tab_select.png",
                   onTap: () {
                     selectTab = 0;
-                    currentTab = const Home();
+                    currentTab = const HomeView();
 
                     if (mounted) {
                       setState(
@@ -78,7 +78,7 @@ class _MainTabViewState extends State<MainTabView> {
                   selectIcon: "assets/images/activity_tab_select.png",
                   onTap: () {
                     selectTab = 1;
-                    currentTab = const Home();
+                    currentTab = const HomeView();
 
                     if (mounted) {
                       setState(
@@ -95,7 +95,7 @@ class _MainTabViewState extends State<MainTabView> {
                   selectIcon: "assets/images/camera_tab_select.png",
                   onTap: () {
                     selectTab = 2;
-                    currentTab = const Home();
+                    currentTab = const HomeView();
 
                     if (mounted) {
                       setState(
@@ -109,7 +109,7 @@ class _MainTabViewState extends State<MainTabView> {
                   selectIcon: "assets/images/profile_tab_select.png",
                   onTap: () {
                     selectTab = 3;
-                    currentTab = const Home();
+                    currentTab = const HomeView();
 
                     if (mounted) {
                       setState(

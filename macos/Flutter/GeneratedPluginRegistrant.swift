@@ -13,6 +13,7 @@ import firebase_messaging
 import firebase_storage
 import flutter_local_notifications
 import path_provider_foundation
+import simple_animation_progress_bar
 import smart_auth
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
@@ -24,5 +25,6 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FLTFirebaseStoragePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseStoragePlugin"))
   FlutterLocalNotificationsPlugin.register(with: registry.registrar(forPlugin: "FlutterLocalNotificationsPlugin"))
   PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))
+  SimpleAnimationProgressBarPlugin.register(with: registry.registrar(forPlugin: "SimpleAnimationProgressBarPlugin"))
   SmartAuthPlugin.register(with: registry.registrar(forPlugin: "SmartAuthPlugin"))
 }

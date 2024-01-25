@@ -385,13 +385,13 @@ class _SignupViewState extends State<SignupView> {
                   ),
                   RoundButton(
                     title: "Register",
-                    // onPressed: () {
-                    //   if (_formKey.currentState?.validate() ?? false) {
-                    //     _handleSubmit();
-                    //   }
-                    // },
+                    onPressed: () {
+                       if (_formKey.currentState?.validate() ?? false) {
+                         _handleSubmit();
+                       }
+                     },
 
-                    onPressed: _isSubmitting ? null : () => _handleSubmit(),
+                   // onPressed: _isSubmitting ? null : () => _handleSubmit(),
                   ),
                   if (_isSubmitting)
                     SizedBox(

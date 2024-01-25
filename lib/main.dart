@@ -144,7 +144,7 @@ class _MyAppState extends State<MyApp> {
       // Si l'utilisateur n'est pas connecté, vous pouvez le rediriger vers l'écran de connexion.
       await Future.delayed(const Duration(seconds: 3));
       navigatorKey.currentState
-          ?.pushReplacementNamed('/login_view'); // Exemple : Page de connexion
+          ?.pushReplacementNamed('/login_view'); 
     } catch (e) {
       print("Erreur lors de l'initialisation de Firebase : $e");
     }

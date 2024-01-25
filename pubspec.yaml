@@ -47,6 +47,12 @@ dependencies:
   firebase_messaging: ^14.7.10
   get_storage: ^2.1.1
   flutter_native_splash: ^2.3.9
+  dotted_dashed_line: ^0.0.3
+  fl_chart: ^0.66.1
+  simple_animation_progress_bar: ^1.6.0
+  animated_toggle_switch: ^0.8.0
+  intl: ^0.19.0
+  simple_circular_progress_bar: ^1.0.2
 
 dev_dependencies:
   flutter_test:

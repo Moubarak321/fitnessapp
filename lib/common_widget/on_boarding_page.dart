@@ -1,5 +1,7 @@
-import "package:fitnessapp/common/color_extension.dart";
-import "package:flutter/material.dart";
+
+import 'package:flutter/material.dart';
+
+import 'package:fitnessapp/common/color_extension.dart';
 
 class OnBoardingPage extends StatelessWidget {
   final Map pObj;
@@ -7,9 +9,10 @@ class OnBoardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.of(context).size;
-
-    return SizedBox(
+     var media = MediaQuery.of(context).size;
+    return 
+    
+    SizedBox(
       width: media.width,
       height: media.height,
       child: Column(
@@ -27,8 +30,7 @@ class OnBoardingPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-                           pObj["title"].toString(),
-
+              pObj["title"].toString(),
               style: TextStyle(
                   color: Tcolor.black,
                   fontSize: 24,
@@ -38,13 +40,10 @@ class OnBoardingPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-             pObj["subtitle"].toString(),
-              style: TextStyle(
-                color: Tcolor.grey,
-                fontSize: 14,
-              ),
+              pObj["subtitle"].toString(),
+              style: TextStyle(color: Tcolor.grey, fontSize: 14),
             ),
-          )
+          ),
         ],
       ),
     );
