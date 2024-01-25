@@ -20,7 +20,7 @@ void main() async {
   );
   FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -30,12 +30,12 @@ void main() async {
   runApp(const MyApp());
 }
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // Gérez les notifications lorsque l'application est en arrière-plan
-  'Title: ${message.notification?.title}';
-  'Body: ${message.notification?.body}';
-  'Payload: ${message.data}';
-}
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   // Gérez les notifications lorsque l'application est en arrière-plan
+//   'Title: ${message.notification?.title}';
+//   'Body: ${message.notification?.body}';
+//   'Payload: ${message.data}';
+// }
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
