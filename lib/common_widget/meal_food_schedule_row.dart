@@ -58,7 +58,7 @@ class MealFoodScheduleRow extends StatelessWidget {
             IconButton(
               onPressed: () {},
               icon: Image.asset(
-                "assets/img/next_go.png",
+                "assets/images/next_go.png",
                 width: 25,
                 height: 25,
               ),

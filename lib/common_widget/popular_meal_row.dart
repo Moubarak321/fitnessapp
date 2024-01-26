@@ -47,7 +47,7 @@ class PopularMealRow extends StatelessWidget {
             IconButton(
               onPressed: () {},
               icon: Image.asset(
-                "assets/img/next_icon.png",
+                "assets/images/next_icon.png",
                 width: 25,
                 height: 25,
               ),

@@ -21,21 +21,21 @@ class _HomeViewState extends State<HomeView> {
   List lastWorkoutArr = [
     {
       "name": "Full Body Workout",
-      "image": "assets/img/Workout1.png",
+      "image": "assets/images/Workout1.png",
       "kcal": "180",
       "time": "20",
       "progress": 0.3
     },
     {
       "name": "Lower Body Workout",
-      "image": "assets/img/Workout2.png",
+      "image": "assets/images/Workout2.png",
       "kcal": "200",
       "time": "30",
       "progress": 0.4
     },
     {
       "name": "Ab Workout",
-      "image": "assets/img/Workout3.png",
+      "image": "assets/images/Workout3.png",
       "kcal": "300",
       "time": "40",
       "progress": 0.7
@@ -149,7 +149,7 @@ class _HomeViewState extends State<HomeView> {
                           );
                         },
                         icon: Image.asset(
-                          "assets/img/notification_active.png",
+                          "assets/images/notification_active.png",
                           width: 25,
                           height: 25,
                           fit: BoxFit.fitHeight,
@@ -166,7 +166,7 @@ class _HomeViewState extends State<HomeView> {
                       borderRadius: BorderRadius.circular(media.width * 0.075)),
                   child: Stack(alignment: Alignment.center, children: [
                     Image.asset(
-                      "assets/img/bg_dots.png",
+                      "assets/images/bg_dots.png",
                       height: media.width * 0.4,
                       width: double.maxFinite,
                       fit: BoxFit.fitHeight,
@@ -643,7 +643,7 @@ class _HomeViewState extends State<HomeView> {
                                   ),
                                 ),
                                 const Spacer(),
-                                Image.asset("assets/img/sleep_grap.png",
+                                Image.asset("assets/images/sleep_grap.png",
                                     width: double.maxFinite,
                                     fit: BoxFit.fitWidth)
                               ]),

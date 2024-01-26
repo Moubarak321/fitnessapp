@@ -84,7 +84,7 @@ class _TodaySleepScheduleRowState extends State<TodaySleepScheduleRow> {
                   child: IconButton(
                     onPressed: () {},
                     icon: Image.asset(
-                      "assets/img/More_V.png",
+                      "assets/images/More_V.png",
                       width: 20,
                       height: 20,
                     ),
