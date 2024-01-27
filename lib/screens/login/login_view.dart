@@ -19,6 +19,7 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
+  bool _passwordVisible = false;
 
   bool isCheck = false;
 
@@ -118,10 +119,14 @@ class _LoginViewState extends State<LoginView> {
                     hitText: "Password",
                     icon: "assets/images/lock.png",
                     keyboardType: TextInputType.emailAddress,
-                    obscureText: true,
+                    obscureText: !_passwordVisible,
                     controller: _passwordController,
                     rightIcon: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         width: 20,

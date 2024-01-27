@@ -46,6 +46,7 @@ class _SignupViewState extends State<SignupView> {
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isSubmitting = false;
+  bool _passwordVisible = false;
 
   bool _isPasswordValid(String value) {
     if (value.length < 6) {
@@ -302,7 +303,7 @@ class _SignupViewState extends State<SignupView> {
                     icon: "assets/images/lock.png",
                     controller: _passwordController,
                     keyboardType: TextInputType.emailAddress,
-                    obscureText: true,
+                    obscureText: !_passwordVisible,
                     validator: (value) {
                       if (!_isPasswordValid(value ?? '')) {
                         return 'Le mot de passe doit contenir au moins 6 caractères.';
@@ -310,7 +311,11 @@ class _SignupViewState extends State<SignupView> {
                       return null;
                     },
                     rightIcon: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         width: 20,
