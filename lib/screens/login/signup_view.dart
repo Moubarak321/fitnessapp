@@ -317,12 +317,14 @@ class _SignupViewState extends State<SignupView> {
                         });
                       },
                       child: Container(
-                        padding: const EdgeInsets.all(12), // Ajustez selon vos besoins
-                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(12),
+                        //alignment: Alignment.centerRight,
+                        width: 20,
+                        height: 20,
                         child: Image.asset(
                           _passwordVisible
-                              ? "assets/images/hide_password.png"
-                              : "assets/images/show_password.png",
+                          ? "assets/images/sub_menu.png"
+                          : "assets/images/show_password.png",
                           width: 20,
                           height: 20,
                           fit: BoxFit.contain,
